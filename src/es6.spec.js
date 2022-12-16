@@ -39,9 +39,28 @@ describe('es6', () => {
     describe('#Dictionary', () => {
         it('экземпляр класса создается', () => {
             const dic = new core.Dictionary();
-
-            // TODO
             assert.strictEqual(!!dic, true);
+        });
+
+        it('проверка плохих данных', () => {
+            const dic = new core.Dictionary();
+            assert.strictEqual(dic.setValue("bus", undefined), undefined);
+            assert.strictEqual(dic.setValue("car", null), undefined);
+            assert.strictEqual(dic.setValue(undefined, "train"), undefined);
+            assert.strictEqual(dic.setValue(null, "plane"), undefined);
+            assert.strictEqual(dic.setValue(undefined, undefined), undefined);
+            assert.strictEqual(dic.setValue(null, null), undefined);
+        });
+
+        it('хорошие данные', () => {
+            const dic = new core.Dictionary();
+            dic.setValue("bmw", "3");
+            dic.setValue("audi", "5");
+            dic.setValue("land rover", "10");
+            assert.strictEqual(dic.getValue("audi"), "5");
+            assert.strictEqual(dic.getValue("amg"), undefined);
+            assert.strictEqual(dic.getValue("bmw"), "3");
+            assert.strictEqual(dic.getValue("land rover"), "10");
         });
     });
 });
